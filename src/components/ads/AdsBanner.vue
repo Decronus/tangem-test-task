@@ -7,7 +7,7 @@
             <ButtonUI secondary>Shop now <span class="add-text">through Monday</span></ButtonUI>
         </div>
 
-        <CloseIcon />
+        <CloseIcon @click="$emit('close')" />
     </div>
 </template>
 

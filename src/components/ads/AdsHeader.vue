@@ -14,7 +14,7 @@
         <div class="ads-header__cta-block">
             <ButtonUI class="button">Shop now</ButtonUI>
             <ArrowIcon class="arrow-icon" />
-            <CloseIcon class="close-icon" @click="closeAdsHeader" />
+            <CloseIcon class="close-icon" @click="$emit('close')" />
         </div>
     </div>
 </template>
@@ -27,12 +27,6 @@ import ArrowIcon from '@/components/icons/ArrowIcon.vue';
 export default {
     name: 'AdsHeader',
     components: { ButtonUI, CloseIcon, ArrowIcon },
-
-    methods: {
-        closeAdsHeader() {
-            this.$emit('close');
-        },
-    },
 };
 </script>
 

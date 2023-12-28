@@ -1,7 +1,7 @@
 <template>
-    <div class="button" :class="{ secondary: secondary }">
+    <button class="button" :class="{ secondary: secondary }">
         <slot />
-    </div>
+    </button>
 </template>
 
 <script>
@@ -26,6 +26,8 @@ export default {
     background: #ffffff;
     border-radius: 100px;
     color: $bgColor;
+    outline: none;
+    border: none;
     cursor: pointer;
 }
 

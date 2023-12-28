@@ -5,7 +5,7 @@
 
     <div class="main-page">
         <div class="content" />
-        <AdsBanner v-if="adsBannerVisibility" @click="closeAdsBanner" />
+        <AdsBanner v-if="adsBannerVisibility" @close="closeAdsBanner" />
     </div>
 </template>
 
@@ -25,25 +25,27 @@ export default {
     },
 
     mounted() {
-        const adsBannerVisibility = localStorage.getItem('adsBannerVisibility');
-        if (adsBannerVisibility === null || JSON.parse(adsBannerVisibility)) {
-            this.handleAdsBannerOpacity();
-        }
+        this.handleAdsBannerOpacity();
     },
 
     methods: {
         handleAdsBannerOpacity() {
-            const header = document.querySelector('.header-wrap');
-            const headerRect = header.getBoundingClientRect();
-            const adsBanner = document.querySelector('.ads-banner');
+            const adsBannerVisibility = localStorage.getItem('adsBannerVisibility');
 
-            this.handleOpacity = () => {
-                const scrollTop = window.scrollY;
-                const opacity = scrollTop - headerRect.height;
-                adsBanner.style.opacity = opacity < 0 ? 0 : opacity + '%';
-            };
+            if (adsBannerVisibility === null || JSON.parse(adsBannerVisibility)) {
+                const header = document.querySelector('.header-wrap');
+                const headerRect = header.getBoundingClientRect();
+                const adsBanner = document.querySelector('.ads-banner');
 
-            window.addEventListener('scroll', this.handleOpacity);
+                this.handleOpacity = () => {
+                    const scrollTop = window.scrollY;
+                    let opacity = scrollTop - headerRect.height;
+                    if (opacity > 100) opacity = 100;
+                    adsBanner.style.opacity = opacity < 0 ? 0 : opacity + '%';
+                };
+
+                window.addEventListener('scroll', this.handleOpacity);
+            }
         },
         closeAdsBanner() {
             this.adsBannerVisibility = false;
