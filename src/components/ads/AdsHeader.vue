@@ -3,14 +3,18 @@
         <img src="@/assets/images/gift-cut.png" alt="gift-cut" />
 
         <div class="ads-header__text">
-            <span class="text__date">Black Friday<span>, 24-27 Nov</span></span>
-            <span class="text__discount">10%OFF</span>
-            <span class="text__code">Use code <span>10FRIDAY</span> at checkout</span>
+            <span class="text__date bullet">Black Friday<span>, 24-27 Nov</span></span>
+            <span class="text__date mobile bullet">Black Friday,&nbsp;</span>
+            <span class="text__discount bullet">10%OFF</span>
+            <span class="text__code">
+                <span>Use code</span> <span class="promo">10FRIDAY</span> <span>at checkout</span>
+            </span>
         </div>
 
         <div class="ads-header__cta-block">
-            <ButtonUI text="Shop now" />
-            <CloseIcon />
+            <ButtonUI class="button">Shop now</ButtonUI>
+            <ArrowIcon class="arrow-icon" />
+            <CloseIcon class="close-icon" @click="closeAdsHeader" />
         </div>
     </div>
 </template>
@@ -18,10 +22,17 @@
 <script>
 import ButtonUI from '@/components/ui/ButtonUI.vue';
 import CloseIcon from '@/components/icons/CloseIcon.vue';
+import ArrowIcon from '@/components/icons/ArrowIcon.vue';
 
 export default {
     name: 'AdsHeader',
-    components: { ButtonUI, CloseIcon },
+    components: { ButtonUI, CloseIcon, ArrowIcon },
+
+    methods: {
+        closeAdsHeader() {
+            this.$emit('close');
+        },
+    },
 };
 </script>
 
@@ -40,6 +51,10 @@ export default {
     img {
         position: absolute;
         left: -8px;
+
+        @media (max-width: 650px) {
+            left: -65px;
+        }
     }
 
     .ads-header__text {
@@ -47,34 +62,74 @@ export default {
         align-items: center;
         z-index: 5;
 
+        @media (max-width: 650px) {
+            position: absolute;
+            right: 72px;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+
         span {
             font-size: 16px;
         }
 
-        span:not(:last-child)::after {
-            content: '';
-            display: inline-flex;
-            align-items: center;
-            width: 3px;
-            height: 3px;
-            border-radius: 2px;
-            background: rgba(255, 255, 255, 0.15);
-            margin: 0 12px;
-            vertical-align: middle;
+        .bullet {
+            &::after {
+                content: '';
+                display: inline-flex;
+                align-items: center;
+                width: 3px;
+                height: 3px;
+                border-radius: 2px;
+                background: rgba(255, 255, 255, 0.15);
+                margin: 0 12px;
+                vertical-align: middle;
+
+                @media (max-width: 650px) {
+                    content: none;
+                }
+            }
         }
 
         .text__date {
             font-weight: 600;
+            @media (max-width: 650px) {
+                display: none;
+            }
 
             span {
                 font-weight: 400;
+
+                @media (max-width: 950px) {
+                    display: none;
+                }
+            }
+        }
+
+        .text__date.mobile {
+            display: none;
+
+            @media (max-width: 650px) {
+                display: block;
             }
         }
 
         .text__discount,
-        .text__code span {
+        .text__code .promo {
             font-weight: 600;
             color: $accentColor;
+        }
+
+        .text__code {
+            @media (max-width: 650px) {
+                display: none;
+            }
+
+            span:last-child {
+                @media (max-width: 950px) {
+                    display: none;
+                }
+            }
         }
     }
 
@@ -90,6 +145,25 @@ export default {
 
         .icon-wrap {
             cursor: pointer;
+        }
+
+        .button {
+            @media (max-width: 650px) {
+                display: none;
+            }
+        }
+
+        .arrow-icon {
+            display: none;
+            @media (max-width: 650px) {
+                display: block;
+            }
+        }
+
+        .close-icon {
+            @media (max-width: 950px) {
+                display: none;
+            }
         }
     }
 }

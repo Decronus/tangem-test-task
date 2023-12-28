@@ -1,6 +1,6 @@
 <template>
     <div class="button" :class="{ secondary: secondary }">
-        {{ text }}
+        <slot />
     </div>
 </template>
 
@@ -11,10 +11,6 @@ export default {
         secondary: {
             type: Boolean,
             default: false,
-        },
-        text: {
-            type: String,
-            default: 'Button text',
         },
     },
 };
@@ -38,5 +34,6 @@ export default {
     border-radius: 14px;
     opacity: 0.9;
     background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 </style>
